@@ -6,7 +6,7 @@ if (typeof ss === 'undefined' || typeof ss.i18n === 'undefined') {
     }
   } else {
     ss.i18n.addDictionary('de', {
-      'CMS.LINKLABEL_PAGE': 'Link zu einem Objekt',
-      'CMS.LINK_PAGE': 'Link zu einem Objekt'
+      'CMS.LINKLABEL_OBJECT': 'Link zu einem Objekt',
+      'CMS.LINK_OBJECT': 'Link zu einem Objekt'
     });
   }

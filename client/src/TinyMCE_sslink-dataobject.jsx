@@ -14,7 +14,7 @@ const commandName = 'sslinkdataobject';
 
 // Link to a dataobject
 TinyMCEActionRegistrar.addAction('sslink', {
-	text: i18n._t('CMS.LINKLABEL_PAGE', 'Link to an Object'),
+	text: i18n._t('CMS.LINKLABEL_OBJECT', 'Link to an Object'),
 	onclick: editor => editor.execCommand(commandName),
 	priority: 53
 }).addCommandWithUrlTest(commandName, /^\[dataobject_link.+]$/);
@@ -75,7 +75,7 @@ jQuery.entwine('ss', $ => {
 							onInsert={handleInsert}
 							onHide={handleHide}
 							onClosed={handleHide}
-							title={i18n._t('CMS.LINK_PAGE', 'Link to a DataObject')}
+							title={i18n._t('CMS.LINK_OBJECT', 'Link to a DataObject')}
 							bodyClassName="modal__dialog"
 							className={modalId}
 							fileAttributes={attrs}
