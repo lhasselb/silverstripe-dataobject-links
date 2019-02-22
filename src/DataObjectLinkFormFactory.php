@@ -31,7 +31,7 @@ class DataObjectLinkFormFactory extends LinkFormFactory
         $fields = FieldList::create([
             DropdownField::create(
                 'ClassName',
-                _t(__CLASS__.'.SELECT_OBJECT', 'Select a type'),
+                _t(__CLASS__.'.SELECT_TYPE', 'Select a type'),
                 $context['AllowedClasses'],
                 $context['ClassName']
             )
@@ -53,7 +53,7 @@ class DataObjectLinkFormFactory extends LinkFormFactory
                 'ClassName',
                 DropdownField::create(
                     'ObjectID',
-                    _t(__CLASS__.'.SELECT_OBJECT', 'Select a ' . $context['ClassName']),
+                    _t(__CLASS__.'.SELECT_OBJECT', 'Select a {object}' , ['object' => $context['ClassName']::create()->singular_name()]),
                     $context['ClassName']::get()->Map('ID', 'Title'),
                     $context['ObjectID']
                 )->setHasEmptyDefault(true)
@@ -62,7 +62,7 @@ class DataObjectLinkFormFactory extends LinkFormFactory
 
         if ($context['RequireLinkText']) {
             $fields->insertBefore(
-                'Description', 
+                'Description',
                 TextField::create('Text', _t(__CLASS__.'.LINKTEXT', 'Link text'))
             );
         }
