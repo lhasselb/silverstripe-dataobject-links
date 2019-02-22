@@ -15,6 +15,10 @@ use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\HiddenField;
 
+/* Logging */
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
+
 /**
  * Provides a form factory for inserting dataobject links in a HTML editor
  */
@@ -28,6 +32,9 @@ class DataObjectLinkFormFactory extends LinkFormFactory
      */
     protected function getFormFields($controller, $name, $context)
     {
+        Injector::inst()
+        ->get(LoggerInterface::class)
+        ->debug('DataObjectLinkFormFactory - getFormFields() class = ' . $context['ClassName'] . ' ' . $name . ' ' . $controller);
         $fields = FieldList::create([
             DropdownField::create(
                 'ClassName',
