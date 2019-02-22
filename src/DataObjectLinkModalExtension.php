@@ -7,7 +7,6 @@ use SilverStripe\Admin\ModalController;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\Form;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\View\Requirements;
 
 /**
  * Decorates ModalController with insert internal link
@@ -18,14 +17,6 @@ class DataObjectLinkModalExtension extends Extension
     private static $allowed_actions = array(
         'editorDataObjectLink',
     );
-
-    /**
-     * Include translation that can be used via javascript
-     */
-    public function init()
-    {
-        Requirements::add_i18n_javascript('FLxLabs\DataObjectLink:client/lang');
-    }
 
     /**
      * @return ModalController
