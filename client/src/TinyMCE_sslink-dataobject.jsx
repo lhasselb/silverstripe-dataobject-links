@@ -73,10 +73,10 @@ jQuery.entwine('ss', $ => {
 				<ApolloProvider client={client}>
 					<Provider store={store}>
 						<InsertLinkDataObjectModal
-							show={isOpen}
+							//show={isOpen}
 							isOpen={isOpen}
 							onInsert={handleInsert}
-							onHide={handleHide}
+							//onHide={handleHide}
 							onClosed={handleHide}
 							title={i18n._t('DATAOBJECT_LINKS.LINK_OBJECT', 'Link to a DataObject')}
 							bodyClassName="modal__dialog"
@@ -110,7 +110,8 @@ jQuery.entwine('ss', $ => {
 		 * @return {Object}
 		 */
 		buildAttributes(data) {
-			const attributes = this._super(data);
+            const attributes = this._super(data);
+            console.log(data);
 			const shortcode = ShortcodeSerialiser.serialise({
                 name: 'dataobject_link',
                 properties: { clazz: data.ClassName, id: data.ObjectID }
