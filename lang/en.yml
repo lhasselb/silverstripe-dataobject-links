@@ -1,0 +1,7 @@
+de:
+  FLxLabs\DataObjectLink\DataObjectLinkFormFactory:
+    SELECT_TYPE: "Choose a type"
+    SELECT_OBJECT: "Choose {object}"
+    LINKDESCR: "Link description"
+    LINKOPENNEWWIN: "Open in new window/tab"
+    LINKTEXT: "Link text"
