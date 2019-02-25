@@ -1,4 +1,4 @@
-de:
+en:
   FLxLabs\DataObjectLink\DataObjectLinkFormFactory:
     SELECT_TYPE: "Choose a type"
     SELECT_OBJECT: "Choose {object}"
