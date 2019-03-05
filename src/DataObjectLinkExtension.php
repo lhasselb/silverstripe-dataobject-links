@@ -21,7 +21,9 @@ class DataObjectLinkExtension extends Extension {
 			return null;
 		}
 
-		if (!($obj = DataObject::get_by_id($arguments['clazz'], $arguments['id']))
+        $class = str_replace('/', '\\', $arguments['clazz']);
+
+		if (!($obj = DataObject::get_by_id($class, $arguments['id']))
 			&& !($obj = Versioned::get_latest_version($arguments['clazz'], $arguments['id']))
 		) {
 			return null; // There were no suitable matches at all.
