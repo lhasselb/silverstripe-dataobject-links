@@ -8,6 +8,10 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\Form;
 use SilverStripe\Core\Config\Config;
 
+/* Logging */
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
+
 /**
  * Decorates ModalController with insert internal link
  * @see ModalController
@@ -36,6 +40,7 @@ class DataObjectLinkModalExtension extends Extension
      */
     public function editorDataObjectLink()
     {
+        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink()');
         $showLinkText = $this->getOwner()->getRequest()->getVar('requireLinkText');
 
         $factory = DataObjectLinkFormFactory::singleton();
@@ -45,6 +50,9 @@ class DataObjectLinkModalExtension extends Extension
             'classes',
             Config::EXCLUDE_EXTRA_SOURCES
         );
+        foreach($classes as $class) {
+            Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $class);
+        }
         if (!$classes) {
             $classes = [];
         }
@@ -54,6 +62,9 @@ class DataObjectLinkModalExtension extends Extension
         $objId = $this->getOwner()->getRequest()->getVar('ObjectID');
         $descr = $this->getOwner()->getRequest()->getVar('Description');
         $targetBlank = $this->getOwner()->getRequest()->getVar('TargetBlank');
+
+        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $class . ' objectID = ' . $objId);
+        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $text . ' objectID = ' . $descr);
 
         return $factory->getForm(
             $this->getOwner(),

@@ -1,5 +1,5 @@
 import Injector from 'lib/Injector';
-/*
+
 Injector.transform(
 	'tinymce-link-dataobject',
 	updater => {
@@ -122,4 +122,3 @@ Injector.transform(
 		before: '*'
 	}
 );
-*/

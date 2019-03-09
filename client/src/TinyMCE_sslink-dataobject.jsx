@@ -13,17 +13,11 @@ import { provideInjector } from 'lib/Injector';
 const commandName = 'sslinkdataobject';
 
 // Link to a dataobject
-TinyMCEActionRegistrar
-    .addAction(
-        'sslink',
-        {
-        text: i18n._t('DATAOBJECT_LINKS.LINKLABEL_OBJECT', 'Link to an Object'),
-        onclick: editor => editor.execCommand(commandName),
-        priority: 53
-        },
-        editorIdentifier,
-    )
-    .addCommandWithUrlTest(commandName, /^\[dataobject_link.+]$/);
+TinyMCEActionRegistrar.addAction('sslink', {
+	text: i18n._t('CMS.LINKLABEL_PAGE', 'Link to an Object'),
+	onclick: editor => editor.execCommand(commandName),
+	priority: 53
+}).addCommandWithUrlTest(commandName, /^\[dataobject_link.+]$/);
 
 const plugin = {
 	init(editor) {
@@ -36,9 +30,12 @@ const plugin = {
 };
 
 const modalId = 'insert-link__dialog-wrapper--dataobject';
-const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
+const sectionConfigKey =
+	'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
 const formName = 'editorDataObjectLink';
-const InsertLinkDataObjectModal = provideInjector(createInsertLinkModal(sectionConfigKey, formName));
+const InsertLinkDataObjectModal = provideInjector(
+	createInsertLinkModal(sectionConfigKey, formName)
+);
 
 jQuery.entwine('ss', $ => {
 	$('textarea.htmleditor').entwine({
@@ -73,12 +70,12 @@ jQuery.entwine('ss', $ => {
 				<ApolloProvider client={client}>
 					<Provider store={store}>
 						<InsertLinkDataObjectModal
-							//show={isOpen}
+							show={isOpen}
 							isOpen={isOpen}
 							onInsert={handleInsert}
-							//onHide={handleHide}
+							onHide={handleHide}
 							onClosed={handleHide}
-							title={i18n._t('DATAOBJECT_LINKS.LINK_OBJECT', 'Link to a DataObject')}
+							title={i18n._t('CMS.LINK_PAGE', 'Link to a DataObject')}
 							bodyClassName="modal__dialog"
 							className={modalId}
 							fileAttributes={attrs}
@@ -97,7 +94,9 @@ jQuery.entwine('ss', $ => {
 		 * @return {Boolean}
 		 */
 		getRequireLinkText() {
-			const selection = this.getElement().getEditor().getInstance().selection;
+			const selection = this.getElement()
+				.getEditor()
+				.getInstance().selection;
 			const selectionContent = selection.getContent() || '';
 			const tagName = selection.getNode().tagName;
 			const requireLinkText = tagName !== 'A' && selectionContent.trim() === '';
@@ -110,12 +109,15 @@ jQuery.entwine('ss', $ => {
 		 * @return {Object}
 		 */
 		buildAttributes(data) {
-            const attributes = this._super(data);
-            console.log(data);
-			const shortcode = ShortcodeSerialiser.serialise({
-                name: 'dataobject_link',
-                properties: { clazz: data.ClassName, id: data.ObjectID }
-			}, true);
+			const attributes = this._super(data);
+
+			const shortcode = ShortcodeSerialiser.serialise(
+				{
+					name: 'dataobject_link',
+					properties: { clazz: data.ClassName, id: data.ObjectID }
+				},
+				true
+			);
 
 			attributes.href = shortcode;
 
@@ -133,7 +135,11 @@ jQuery.entwine('ss', $ => {
 			}
 
 			// check if page is safe
-			const shortcode = ShortcodeSerialiser.match('dataobject_link', false, href);
+			const shortcode = ShortcodeSerialiser.match(
+				'dataobject_link',
+				false,
+				href
+			);
 			if (!shortcode) {
 				return {};
 			}
