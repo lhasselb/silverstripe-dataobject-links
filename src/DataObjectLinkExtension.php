@@ -14,24 +14,25 @@ use Psr\Log\LoggerInterface;
 class DataObjectLinkExtension extends Extension {
 	public function updateClientConfig(&$clientConfig)
 	{
-        //Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - updateClientConfig()');
         $clientConfig['form']['editorDataObjectLink'] = [
 			'schemaUrl' => $this->getOwner()->Link('methodSchema/Modals/editorDataObjectLink')
 		];
-        foreach ($clientConfig['form']['editorDataObjectLink'] as $key => $value) {
-            //Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - updateClientConfig() key = ' . $key. ' value = ' . $value);
-        }
 	}
 
 	public static function link_shortcode_handler($arguments, $content = null, $parser = null)
 	{
-        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - link_shortcode_handler()');
-
         if (!isset($arguments['id']) || !is_numeric($arguments['id']) || !isset($arguments['clazz'])) {
 			return null;
 		}
 
-        $class = str_replace('/', '\\', $arguments['clazz']);
+        /** Somewhere within the Javascript code the namespace path gets lost My\New\ClassName ends as MyNewClassName
+         * I was not able to find the root cause within silverstripe-dataobject-links/client/src/TinyMCE_sslink-dataobject.jsx
+         *
+         * See an working silverstripe example on https://github.com/silverstripe/silverstripe-cms/blob/4/client/src/legacy/TinyMCE_sslink-internal.js
+         * So we need to use this dirty work arround to fix it again
+         */
+        $class = substr(preg_replace('/([A-Z])+/', '\\\\$1', $arguments['clazz']),1);
+
         Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - link_shortcode_handler() class = ' . $class);
 
 		if (!($obj = DataObject::get_by_id($class, $arguments['id']))

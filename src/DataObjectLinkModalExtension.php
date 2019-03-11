@@ -40,19 +40,14 @@ class DataObjectLinkModalExtension extends Extension
      */
     public function editorDataObjectLink()
     {
-        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink()');
         $showLinkText = $this->getOwner()->getRequest()->getVar('requireLinkText');
-
         $factory = DataObjectLinkFormFactory::singleton();
-
         $classes = Config::inst()->get(
             DataObjectLinkModalExtension::class,
             'classes',
             Config::EXCLUDE_EXTRA_SOURCES
         );
-        foreach($classes as $class) {
-            Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $class);
-        }
+
         if (!$classes) {
             $classes = [];
         }
@@ -63,8 +58,9 @@ class DataObjectLinkModalExtension extends Extension
         $descr = $this->getOwner()->getRequest()->getVar('Description');
         $targetBlank = $this->getOwner()->getRequest()->getVar('TargetBlank');
 
-        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $class . ' objectID = ' . $objId);
-        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $text . ' objectID = ' . $descr);
+        if (isset($class)) {
+            Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkModalExtension - editorDataObjectLink() class = ' . $class . ' objectID = ' . $objId);
+        }
 
         return $factory->getForm(
             $this->getOwner(),

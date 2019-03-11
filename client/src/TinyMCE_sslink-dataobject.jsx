@@ -13,11 +13,18 @@ import { provideInjector } from 'lib/Injector';
 const commandName = 'sslinkdataobject';
 
 // Link to a dataobject
-TinyMCEActionRegistrar.addAction('sslink', {
-	text: i18n._t('CMS.LINKLABEL_PAGE', 'Link to an Object'),
-	onclick: editor => editor.execCommand(commandName),
-	priority: 53
-}).addCommandWithUrlTest(commandName, /^\[dataobject_link.+]$/);
+TinyMCEActionRegistrar
+    .addAction(
+        'sslink',
+        {
+        text: i18n._t('CMS.LINKLABEL_PAGE', 'Link to an Object'),
+        onclick: editor => editor.execCommand(commandName),
+        priority: 53
+        },
+        editorIdentifier,
+    )
+    .addCommandWithUrlTest(commandName, /^\[dataobject_link.+]$/);
+
 
 const plugin = {
 	init(editor) {
@@ -30,12 +37,9 @@ const plugin = {
 };
 
 const modalId = 'insert-link__dialog-wrapper--dataobject';
-const sectionConfigKey =
-	'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
+const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
 const formName = 'editorDataObjectLink';
-const InsertLinkDataObjectModal = provideInjector(
-	createInsertLinkModal(sectionConfigKey, formName)
-);
+const InsertLinkDataObjectModal = provideInjector(createInsertLinkModal(sectionConfigKey, formName));
 
 jQuery.entwine('ss', $ => {
 	$('textarea.htmleditor').entwine({
@@ -127,7 +131,8 @@ jQuery.entwine('ss', $ => {
 		getOriginalAttributes() {
 			const editor = this.getElement().getEditor();
 			const node = $(editor.getSelectedNode());
-
+            //console.log(`getOriginalAttributes() href = ${editor.getSelectedNode()}`);
+            //console.log(`getOriginalAttributes() href = ${node.attr('href')}`);
 			// Get href
 			const href = node.attr('href') || '';
 			if (!href || !clazz) {
