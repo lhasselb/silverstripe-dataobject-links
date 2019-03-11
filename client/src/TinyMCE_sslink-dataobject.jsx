@@ -17,7 +17,7 @@ TinyMCEActionRegistrar
     .addAction(
         'sslink',
         {
-        text: i18n._t('CMS.LINKLABEL_PAGE', 'Link to an Object'),
+        text: i18n._t('DATAOBJECT_LINKS.LINKLABEL_OBJECT', 'Link to an Object'),
         onclick: editor => editor.execCommand(commandName),
         priority: 53
         },
@@ -79,7 +79,7 @@ jQuery.entwine('ss', $ => {
 							onInsert={handleInsert}
 							onHide={handleHide}
 							onClosed={handleHide}
-							title={i18n._t('CMS.LINK_PAGE', 'Link to a DataObject')}
+							title={i18n._t('DATAOBJECT_LINKS.LINK_OBJECT', 'Link to a DataObject')}
 							bodyClassName="modal__dialog"
 							className={modalId}
 							fileAttributes={attrs}
@@ -148,7 +148,7 @@ jQuery.entwine('ss', $ => {
 			if (!shortcode) {
 				return {};
 			}
-
+            console.log(`getOriginalAttributes() shortcode = ${shortcode}`);
 			// Parse class ourselves because shortcode parser sucks
 			const clazz = shortcode.original.match(/clazz=(.*?)\W/)[1];
 
