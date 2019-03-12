@@ -33,7 +33,7 @@ class DataObjectLinkExtension extends Extension {
          */
         $class = substr(preg_replace('/([A-Z])+/', '\\\\$1', $arguments['clazz']),1);
 
-        Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - link_shortcode_handler() class = ' . $class);
+        //Injector::inst()->get(LoggerInterface::class)->debug('DataObjectLinkExtension - link_shortcode_handler() class = ' . $class);
 
 		if (!($obj = DataObject::get_by_id($class, $arguments['id']))
 			&& !($obj = Versioned::get_latest_version($arguments['clazz'], $arguments['id']))
