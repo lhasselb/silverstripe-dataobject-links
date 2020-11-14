@@ -140,11 +140,7 @@ jQuery.entwine('ss', $ => {
 			}
 
 			// check if page is safe
-			const shortcode = ShortcodeSerialiser.match(
-				'dataobject_link',
-				false,
-				href
-			);
+			const shortcode = ShortcodeSerialiser.match('dataobject_link', false, href);
 			if (!shortcode) {
 				return {};
 			}
@@ -154,9 +150,7 @@ jQuery.entwine('ss', $ => {
 
 			return {
 				ClassName: clazz,
-				ObjectID: shortcode.properties.id
-					? parseInt(shortcode.properties.id, 10)
-					: 0,
+				ObjectID: shortcode.properties.id ? parseInt(shortcode.properties.id, 10) : 0,
 				Description: node.attr('title'),
 				TargetBlank: !!node.attr('target')
 			};
