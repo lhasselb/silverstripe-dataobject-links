@@ -1,7 +1,8 @@
 de:
   FLxLabs\DataObjectLink\DataObjectLinkFormFactory:
     SELECT_TYPE: "Wählen Sie einen Typ"
-    SELECT_OBJECT: "Wählen Sie ein {object}"
+    SELECT_OBJECT: "Wählen Sie ein Element"
+    SELECT_DEPENDANT_OBJECT: "Wählen Sie einen Eintrag"
     LINKDESCR: "Beschreibung"
     LINKOPENNEWWIN: "In einem neuen Fenster/Tab öffnen"
     LINKTEXT: "Linktext"
